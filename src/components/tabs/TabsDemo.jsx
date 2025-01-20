@@ -6,6 +6,7 @@ import StockContext from "../stock/StockContext";
 import GitHubData from "../github/GitHubData";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "./../../redux/feature/login/loginSlice";
+import Pp from "../../assets/male-avatar.png"
 
 export function TabsDemo() {
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ export function TabsDemo() {
           className="flex items-center justify-center w-10 h-10 rounded-full overflow-hidden border-2 border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <img
-            src={"/imgs/male-avatar.png"} // Replace with dynamic avatar URL if needed
+            src={Pp} // Replace with dynamic avatar URL if needed
             alt="Profile Avatar"
             className="w-full h-full object-cover"
           />
