@@ -15,7 +15,6 @@ import ApexCharts from 'react-apexcharts';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 export default function StockContext() {
-
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedStock, setSelectedStock] = useState('');
@@ -54,7 +53,6 @@ export default function StockContext() {
         const timeLabels = Object.keys(times).reverse();
         const prices = timeLabels.map((time) => parseFloat(times[time]['1. open']));
 
-        // Line chart data
         setChartData({
           labels: timeLabels,
           datasets: [
@@ -69,7 +67,6 @@ export default function StockContext() {
           ],
         });
 
-        // Candlestick chart data
         const candlestick = timeLabels.map((time) => ({
           x: time,
           y: [
@@ -117,7 +114,6 @@ export default function StockContext() {
   return (
     <div className='w-full h-[98%] overflow-y-auto flex flex-col sm:flex-row text-white'>
       <div className='sm:w-[20%] w-full h-auto flex flex-col cursor-pointer'>
-        {/* <div className="w-full h-auto pl-2 pr-2 pb-0 mb-0 text-9xl flex items-center justify-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">FINANCE</div> */}
         <br />
         <div className="relative mb-4">
           <input
@@ -125,7 +121,7 @@ export default function StockContext() {
             value={searchQuery}
             onChange={handleInputChange}
             placeholder="Search for a symbol..."
-            className="w-full h-10  hover:shadow-red-500 shadow-lg text-gray-200 bg-black text-xs p-4 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 border"
+            className="w-full h-10 hover:shadow-red-500 shadow-lg text-gray-200 bg-black text-xs p-4 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 border"
           />
           {suggestions.length > 0 && (
             <ul className="absolute z-10 bg-white text-black text-xs border rounded-lg shadow-lg w-full mt-1 max-h-60 overflow-y-auto">
@@ -143,17 +139,23 @@ export default function StockContext() {
         </div>
         <div className="text-center mb-4">
           <div onClick={() => setIsLineChart(true)} className='p-2 mt-2 flex items-center justify-center w-full text-sm border hover:shadow-lg hover:shadow-white border-white rounded-lg hover:bg-white text-black hover:text-black hover:font-bold'>LINE CHART</div>
-
           <div onClick={() => setIsLineChart(false)} className='p-2 mt-2 flex items-center justify-center w-full text-sm border hover:shadow-lg hover:shadow-white border-white rounded-lg hover:bg-white text-black hover:text-black hover:font-bold'>CANDLESTICK CHART</div>
         </div>
       </div>
 
       <div className='sm:w-[2%] w-full sm:h-full h-16'></div>
       <div className='sm:w-[78%] w-full h-auto relative overflow-hidden bg-white sm:mt-0'>
-      <div className="w-full h-auto pl-2 pr-2 pb-0 mb-0 text-4xl flex items-center justify-center bg-clip-text text-gray-700">FINANCE DASHBOARD</div>
+        <div className="w-full h-auto pl-2 pr-2 pb-0 mb-0 text-4xl flex items-center justify-center bg-clip-text text-gray-700">FINANCE DASHBOARD</div>
+        
+        {!selectedStock && !loading && (
+          <div className="flex items-center justify-center h-64 text-gray-500 text-xl font-semibold">
+            Enter a symbol to view charts
+          </div>
+        )}
+        
         {loading && <p className="text-center">Loading...</p>}
 
-        {!loading && isLineChart && chartData.labels && (
+        {!loading && selectedStock && isLineChart && chartData.labels && (
           <div>
             <h2 className="text-xl font-bold text-center mb-4 text-black">Line Chart</h2>
             <Line
@@ -183,7 +185,7 @@ export default function StockContext() {
           </div>
         )}
 
-        {!loading && !isLineChart && candlestickData.length > 0 && (
+        {!loading && selectedStock && !isLineChart && candlestickData.length > 0 && (
           <div>
             <h2 className="text-xl font-bold text-center mt-32 mb-4 text-white">Candlestick Chart</h2>
             <ApexCharts
