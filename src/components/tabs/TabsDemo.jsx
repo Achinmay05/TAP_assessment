@@ -32,7 +32,7 @@ export function TabsDemo() {
 
   const tabs = [
     {
-      title: "Weather",
+      title: "Weather/geolocation",
       value: "product",
       content: (
         <div className="w-full relative h-full rounded-2xl p-3 text-xl md:text-4xl font-bold text-dark bg-gray-200">
@@ -41,7 +41,7 @@ export function TabsDemo() {
       ),
     },
     {
-      title: "News",
+      title: "News/Network",
       value: "services",
       content: (
         <div className="w-full relative h-full rounded-2xl p-3 text-xl md:text-4xl font-bold text-dark bg-gray-200">

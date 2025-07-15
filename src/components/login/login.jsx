@@ -181,7 +181,7 @@ export default function LoginSignup() {
                   <select
                     name="gender"
                     id="gender"
-                    className="bg-transparent border border-gray-300 text-white rounded-lg block w-full p-2.5"
+                    className="bg-transparent border border-gray-300 text-black rounded-lg block w-full p-2.5"
                     required
                   >
                     <option value="">Select gender</option>
