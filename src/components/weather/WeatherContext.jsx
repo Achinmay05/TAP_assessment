@@ -16,7 +16,7 @@ export default function WeatherContext() {
     const [showLocationDialog, setShowLocationDialog] = useState(false);
     const [location, setLocation] = useState({ lat: null, lon: null });
     const [weather, setWeather] = useState({
-        main: { temp: 0, feels_like: 0, pressure: 0, humidity: 0 },
+        main: { temp: 0, feels_like: 273, pressure: 0, humidity: 0 },
         weather: [{ main: "", description: "", icon: "" }],
         wind: { speed: 0 },
         sys: { sunrise: 0, sunset: 0 },
@@ -66,6 +66,8 @@ export default function WeatherContext() {
     };
 
     const fetchReverseGeocode = async (lat, lon) => {
+        setLocation({ lat, lon });
+        
         try {
             const response = await fetch(
                 `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${API_KEY}`
@@ -166,6 +168,7 @@ export default function WeatherContext() {
             const result = await response.json();
             if (result && result.length > 0) {
                 setData(result[0]);
+                setLocation( result[0].lat, result[0].lon );
                 // Use the existing fetchReverseGeocode function to get state info
                 await fetchReverseGeocode(result[0].lat, result[0].lon);
                 return result[0];
@@ -273,7 +276,7 @@ export default function WeatherContext() {
                 </div>
                 <div onClick={requestLocationPermission} className='cursor-pointer p-2 mt-2 flex items-center justify-center w-full text-sm border bg-gray-700 hover:shadow-lg hover:shadow-white border-white rounded-lg hover:bg-white hover:text-black hover:font-bold'>CURRENT LOCATION</div>
                 <div className='w-full h-[20px]'></div>
-                <div className='w-full h-[200px] relative rounded'>
+                <div className='w-full h-[250px] relative rounded'>
                     <div className='w-full h-full bg-[#faf0e6] border-solid border-2 border-gray-500 absolute opacity-40 rounded'></div>
                     <div className='w-full p-2 h-full flex flex-col rounded relative shadow-lg hover:shadow-gray-800'>
                         <div className='font-bold opacity-60 absolute tracking-normal hover:tracking-wider transition-all duration-300 text-2xl h-full hover:text-red-500 pl-1 w-full bg-clip-text text-gray-800 bg-gradient-to-b from-neutral-50 to-neutral-500'>Now</div>
@@ -294,6 +297,7 @@ export default function WeatherContext() {
                         <div className='text-gray-700 text-sm mt-[-67px] ml-7'>{day} / {month} / {year}</div>
                         <div className='text-gray-700 text-xl mt-[20px] sm:ml-64 ml-56'>{weather.weather[0].main}</div>
                         <img src={Loc} className="mt-36 absolute w-[5%] pointer-events-none invert" alt="" />
+                        <div className='text-gray-700 text-sm mt-2 ml-7'>{location.lat} / {location.lon}</div>
                     </div>
                 </div>
             </div>

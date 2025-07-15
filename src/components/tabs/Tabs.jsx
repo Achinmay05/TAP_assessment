@@ -42,11 +42,10 @@ const Tabs = ({
         };
     }, []);
 
-
     return (
         <>
             <div className="flex items-center w-screen justify-between h-[5%] p-10">
-                <div className="text-dark font-serif font-extrabold text-5xl ">PGAGI</div>
+                <div className="text-dark font-serif font-extrabold text-5xl ">TAP</div>
                 <div className="relative w-auto">
                     {/* Desktop View */}
                     <div
