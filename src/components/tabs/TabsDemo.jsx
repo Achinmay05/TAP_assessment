@@ -11,7 +11,7 @@ export function TabsDemo() {
 
   const tabs = [
     {
-      title: "Weather",
+      title: "Weather/geolocation",
       value: "product",
       content: (
         <div className="w-full relative h-full rounded-2xl p-3 text-xl md:text-4xl font-bold text-dark bg-gray-200">
@@ -20,7 +20,29 @@ export function TabsDemo() {
       ),
     },
     {
+<<<<<<< HEAD
       title: "NetworkData",
+=======
+      title: "News/Network",
+      value: "services",
+      content: (
+        <div className="w-full relative h-full rounded-2xl p-3 text-xl md:text-4xl font-bold text-dark bg-gray-200">
+          <NewsContext />
+        </div>
+      ),
+    },
+    {
+      title: "Stock",
+      value: "playground",
+      content: (
+        <div className="w-full relative h-full rounded-2xl p-3 text-xl md:text-4xl font-bold text-dark bg-gray-200">
+          <StockContext />
+        </div>
+      ),
+    },
+    {
+      title: "Github",
+>>>>>>> 453c03fa9883aa3b651e7e8b5b60fff9184af268
       value: "new",
       content: (
         <div className="w-full relative h-full rounded-2xl p-3 text-xl md:text-4xl font-bold text-dark bg-gray-200 overflow-auto">

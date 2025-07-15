@@ -12,6 +12,12 @@ import T from '../../assets/t.png';
 
 export default function WeatherContext() {
     const [city, setCity] = useState("");
+    const [networkInfo, setNetworkInfo] = useState({
+        downlink: null,
+        effectiveType: '',
+        rtt: null,
+        saveData: false
+    });
     const [locationPermission, setLocationPermission] = useState("prompt");
     const [showLocationDialog, setShowLocationDialog] = useState(false);
     const [location, setLocation] = useState({ lat: null, lon: null });
@@ -186,7 +192,7 @@ export default function WeatherContext() {
             // First check if the browser supports the Permissions API
             if (navigator.permissions && navigator.permissions.query) {
                 const result = await navigator.permissions.query({ name: 'geolocation' });
-                
+
                 if (result.state === 'granted') {
                     getCurrentLocation();
                 } else if (result.state === 'prompt') {
@@ -196,7 +202,7 @@ export default function WeatherContext() {
                             const { latitude: lat, longitude: lon } = position.coords;
                             setLocation({ lat, lon });
                             setLocationPermission("granted");
-                            
+
                             // Fetch all data after permission is granted
                             Promise.all([
                                 fetchWeather(lat, lon),
@@ -256,7 +262,7 @@ export default function WeatherContext() {
         return new Date(data * 1000);
     };
 
-   
+
 
     return (
         <div className='w-full h-[98%] overflow-y-auto flex flex-col sm:flex-row text-white'>
@@ -293,7 +299,10 @@ export default function WeatherContext() {
                             />
                         )}
                         <img src={Cal} className="mt-28 absolute w-[5%] pointer-events-none invert" alt="" />
-                        <div className='text-gray-700 text-sm mt-[140px] ml-7'>{weather?.name || "City name unavailable"} <br /> {data?.state || "State not available"}   {data?.country || "NOA"}</div>
+                        <div className='text-gray-700 text-sm mt-[140px] ml-7'>{weather?.name || "City name unavailable"} <br /> {data?.state || "State not available"}   {data?.country || "NOA"} </div>
+                       
+
+
                         <div className='text-gray-700 text-sm mt-[-67px] ml-7'>{day} / {month} / {year}</div>
                         <div className='text-gray-700 text-xl mt-[20px] sm:ml-64 ml-56'>{weather.weather[0].main}</div>
                         <img src={Loc} className="mt-36 absolute w-[5%] pointer-events-none invert" alt="" />
